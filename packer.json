@@ -1,9 +1,9 @@
 {
-    "description": "A base image used and maintained by Neam Labs. Currently it is a Debian 7 TurnkeyLinux based LEMP-stack (Linux, Nginx, MySQL, PHP) with memcache and yeoman (grunt-cli, npm, bower) installed",
+    "description": "A Debian 7 TurnKey Core based image prepped with various packages used in continuous integration scripts in order to shorten build times by not having to install them again and again. Installed: yeoman (grunt-cli, npm, bower), s3cmd, build-essential, bzip2, openjdk-6-jre, ruby-full, rubygems1.8, compass (gem)",
     "builders": [
         {
             "type": "docker",
-            "image": "turnkeylinux/nginx-php-fastcgi-13.0",
+            "image": "turnkeylinux/core-13.0",
             "run_command": ["run", "-d", "-i", "-t", "-v", "{{.Volumes}}", "-v", "{{pwd}}/provisioning-shell-scripts:/volumes/provisioning-shell-scripts", "{{.Image}}", "/bin/bash"],
             "export_path": "docker.tar"
         }
@@ -18,8 +18,8 @@
         [
             {
                 "type": "docker-import",
-                "repository": "neam/lemp-base",
-                "tag": "latest"
+                "repository": "neam/ci-base",
+                "tag": "yeoman-1"
             },
             "docker-push"
         ]
