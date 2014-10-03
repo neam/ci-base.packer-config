@@ -19,7 +19,7 @@
             {
                 "type": "docker-import",
                 "repository": "neam/ci-base",
-                "tag": "yeoman-1"
+                "tag": "yeoman-s3cmd-php-1"
             },
             "docker-push"
         ]

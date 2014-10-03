@@ -35,5 +35,10 @@ apt-get install -y -q bzip2 build-essential
 apt-get install -y -q openjdk-6-jre ruby-full rubygems1.8
 gem install compass --no-rdoc --no-ri
 
+# necessary for php cli scripts
+apt-get install -y -q php5-cli
+
+# necessary for s3 deploy
+./s3cmd.sh
 
 cd /root
