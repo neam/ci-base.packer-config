@@ -1,27 +1,38 @@
 {
-    "description": "A Debian 7 TurnKey Core based image prepped with various packages used in continuous integration scripts in order to shorten build times by not having to install them again and again. Installed: yeoman (grunt-cli, npm, bower), s3cmd, build-essential, bzip2, openjdk-6-jre, ruby-full, rubygems1.8, compass (gem)",
     "builders": [
         {
-            "type": "docker",
+            "export_path": "docker.tar",
             "image": "turnkeylinux/core-13.0",
-            "run_command": ["run", "-d", "-i", "-t", "-v", "{{.Volumes}}", "-v", "{{pwd}}/provisioning-shell-scripts:/volumes/provisioning-shell-scripts", "{{.Image}}", "/bin/bash"],
-            "export_path": "docker.tar"
+            "run_command": [
+                "run",
+                "-d",
+                "-i",
+                "-t",
+                "-v",
+                "{{.Volumes}}",
+                "-v",
+                "{{pwd}}/provisioning-shell-scripts:/volumes/provisioning-shell-scripts",
+                "{{.Image}}",
+                "/bin/bash"
+            ],
+            "type": "docker"
         }
     ],
-    "provisioners": [
-        {
-            "type": "shell",
-            "script": "provision.sh"
-        }
-    ],
+    "description": "A Debian 7 TurnKey Core based image prepped with various packages used in continuous integration scripts in order to shorten build times by not having to install them again and again. Installed: yeoman (grunt-cli, npm, bower), s3cmd, build-essential, bzip2, openjdk-6-jre, ruby-full, rubygems1.8, compass (gem)",
     "post-processors": [
         [
             {
-                "type": "docker-import",
                 "repository": "neam/ci-base",
-                "tag": "yeoman-s3cmd-php-1"
+                "tag": "yeoman-s3cmd-php-1",
+                "type": "docker-import"
             },
             "docker-push"
         ]
+    ],
+    "provisioners": [
+        {
+            "script": "provision.sh",
+            "type": "shell"
+        }
     ]
 }
